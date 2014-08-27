@@ -1,10 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from __future__ import division
+
 __author__ = 'XingKaiXin.me'
+
 import exifread
 
-f = open(r'C:\ideaproject\pyXingKaiXin.me\www\a.jpg', 'rb')
+f = open(r'./gpsimg/a.jpg', 'rb')
 
 Longitude = "GPS GPSLongitude"
 Latitude = "GPS GPSLatitude"
@@ -15,11 +17,11 @@ gps = [Longitude, Latitude, isSouthorNorth, isEastorWest]
 tags = exifread.process_file(f)
 gpsdict = {}
 for tag in tags.keys():
-	if tag in gps:
-		#print "Key: %s, value %s" % (tag, tags[tag])
-		gpsdict[tag] = tags[tag]
-	# else:
-	# 	print "Key: %s, value %s" % (tag, tags[tag])
+    if tag in gps:
+        #print "Key: %s, value %s" % (tag, tags[tag])
+        gpsdict[tag] = tags[tag]
+    # else:
+    # 	print "Key: %s, value %s" % (tag, tags[tag])
 
 # def gpstran(a):
 # 	return a[0] + a[1]/60 + a[2]/3600
@@ -27,14 +29,12 @@ for tag in tags.keys():
 # print gpsdict[Latitude], gpstran(gpsdict[Latitude])
 # print gpsdict[Longitude], gpstran(gpsdict[Longitude])
 
-
-
 def gpstran(a):
-	j = []
-	for i in a:
-		j.append(i.num/i.den)
-		#print j
-	return j[0] + j[1]/60.0 + j[2]/3600.0
+    j = []
+    for i in a:
+        j.append(i.num/i.den)
+        #print j
+    return j[0] + j[1]/60.0 + j[2]/3600.0
 
 gpsLatvalues = gpsdict[Latitude].values
 gpslongvalues = gpsdict[Longitude].values
