@@ -6,7 +6,7 @@ __author__ = 'XingKaiXin.me'
 
 import exifread
 
-f = open(r'./gpsimg/a.jpg', 'rb')
+f = open(r'./gpsimg/d.jpg', 'rb')
 
 Longitude = "GPS GPSLongitude"
 Latitude = "GPS GPSLatitude"
@@ -15,6 +15,7 @@ isEastorWest = "GPS GPSLongitudeRef"
 
 gps = [Longitude, Latitude, isSouthorNorth, isEastorWest]
 tags = exifread.process_file(f)
+f.close()
 gpsdict = {}
 for tag in tags.keys():
     if tag in gps:
