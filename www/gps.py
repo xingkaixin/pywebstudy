@@ -39,7 +39,7 @@ def gpstran(a):
 
 gpsLatvalues = gpsdict[Latitude].values
 gpslongvalues = gpsdict[Longitude].values
-print gpsLatvalues,gpslongvalues
+print gpsLatvalues, gpslongvalues
 # #print gpsvalues, gpsvalues[0],gpsvalues[1],dir(gpsvalues[2])
 # print gpsvalues[0],dir(gpsvalues[0]), gpsvalues[0].den,gpsvalues[0].num
 # print gpsvalues[1],dir(gpsvalues[1]), gpsvalues[1].den,gpsvalues[1].num
