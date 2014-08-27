@@ -30,6 +30,7 @@ for tag in tags.keys():
 # print gpsdict[Latitude], gpstran(gpsdict[Latitude])
 # print gpsdict[Longitude], gpstran(gpsdict[Longitude])
 
+
 def gpstran(a):
     j = []
     for i in a:
@@ -44,4 +45,4 @@ print gpsLatvalues, gpslongvalues
 # print gpsvalues[0],dir(gpsvalues[0]), gpsvalues[0].den,gpsvalues[0].num
 # print gpsvalues[1],dir(gpsvalues[1]), gpsvalues[1].den,gpsvalues[1].num
 # print gpsvalues[2],dir(gpsvalues[2]), gpsvalues[2].den,gpsvalues[2].num
-print gpstran(gpsLatvalues),gpstran(gpslongvalues)
+print gpstran(gpsLatvalues), gpstran(gpslongvalues)
