@@ -1,4 +1,4 @@
-XingKaiXin.me
+pywebstudy
 ==============
 
-use python to build a web site demo
+study web dev with python
