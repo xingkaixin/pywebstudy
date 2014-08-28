@@ -6,6 +6,7 @@ __author__ = 'XingKaiXin.me'
 
 import exifread
 import os
+from baidu import geoconv
 
 
 Longitude, Latitude, isSouthorNorth, isEastorWest = "GPS GPSLongitude", "GPS GPSLatitude", \
@@ -24,7 +25,6 @@ def printgps(file):
         if tag in gps:
             gpsdict[tag] = tags[tag]
 
-
     def gpstran(a):
         j = []
         for i in a:
@@ -37,5 +37,7 @@ def printgps(file):
     gpslongvalues = gpsdict[Longitude].values
     print filename, gpsisEastorWest, gpstran(gpslongvalues), gpsisSourthorNorth, gpstran(gpsLatvalues)
 
-for f1 in files:
-    printgps(f1)
+for f in files:
+    printgps(f)
+
+geoconv
