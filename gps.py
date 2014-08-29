@@ -35,9 +35,9 @@ def printgps(file):
     gpsisEastorWest = gpsdict[isEastorWest].values
     gpsLatvalues = gpsdict[Latitude].values
     gpslongvalues = gpsdict[Longitude].values
-    print filename, gpsisEastorWest, gpstran(gpslongvalues), gpsisSourthorNorth, gpstran(gpsLatvalues)
+    # print filename, gpsisEastorWest, gpstran(gpslongvalues), gpsisSourthorNorth, gpstran(gpsLatvalues)
+    print filename, geoconv.conv(str(gpstran(gpslongvalues)) + ',' + str(gpstran(gpsLatvalues)))
 
 for f in files:
     printgps(f)
 
-geoconv
