@@ -14,13 +14,32 @@
 </head>
 <body>
 	<div id="allmap"></div>
+    <p>{{ gps_data }}</p>
 </body>
 </html>
-<script type="text/javascript">
-	// 百度地图API功能	
+<script type="text/javascript" charset="utf-8" >
+	//request gps data
+	var url = "/gpsdata"
+	//1.创建XMLHttpRequest组建
+    xmlHttpRequest = createXmlHttpRequest();
+
+    //2.设置回调函数
+    //xmlHttpRequest.onreadystatechange = gpsJSON;
+
+    //3.初始化XMLHttpRequest组建
+    xmlHttpRequest.open("GET",url,true);
+
+    //4.发送请求
+    xmlHttpRequest.send(null);
+    var gps = xmlHttpRequest.responseText;
+    document.write(gps);
+
+	// 百度地图API功能
 	map = new BMap.Map("allmap");
 	map.centerAndZoom(new BMap.Point(121.50257596903, 31.402513799794), 1);
 	map.enableScrollWheelZoom(true);
+	//var gps = {{gps_data}};
+	var tit = "{{ tilte }}";
 	var data_info = [[121.50257596903, 31.402513799794,"A"],
 					 [121.60956005698, 31.206691064643,"B"],
 					 [121.50264354586, 31.402572117756,"C"],
@@ -29,7 +48,7 @@
 	var opts = {
 				width : 250,     // 信息窗口宽度
 				height: 80,     // 信息窗口高度
-				title : "Title" , // 信息窗口标题
+				title : "TITLE" , // 信息窗口标题
 				enableMessage:false//设置允许信息窗发送短息
 			   };
 	for(var i=0;i<data_info.length;i++){
@@ -41,7 +60,16 @@
 	function openInfo(content,e){
 		var p = e.target;
 		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
-		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
 		map.openInfoWindow(infoWindow,point); //开启信息窗口
 	}
+
+	//XmlHttpRequest对象
+    function createXmlHttpRequest(){
+        if(window.ActiveXObject){ //如果是IE浏览器
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        }else if(window.XMLHttpRequest){ //非IE浏览器
+            return new XMLHttpRequest();
+        }
+    }
 </script>

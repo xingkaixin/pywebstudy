@@ -7,6 +7,7 @@ import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
 from contextlib import closing
+import json
 
 # configuation
 DATABASE = './tmp/flaskr.db'
@@ -78,6 +79,33 @@ def logout():
     session.pop('logged_in', None)
     flash('You were logged out')
     return redirect(url_for('show_entries'))
+
+
+@app.route('/map')
+def openmap():
+    # flash('open map')
+    return render_template('index.html')
+
+
+@app.route('/gpsdata')
+def gpsdata():
+    # flash('open map')
+    basic = [
+        [121.50257596903, 31.402513799794, "A"],
+        [121.60956005698, 31.206691064643, "B"],
+        [121.50264354586, 31.402572117756, "C"],
+        [113.55655398267, 22.191839043074, "D"]
+    ]
+
+    gps = []
+    for b in basic:
+        point = {}
+        point['x'] = b[0]
+        point['y'] = b[1]
+        point['content'] = b[2]
+        gps.append(point)
+    return json.dumps(gps, ensure_ascii=True)
+
 
 if __name__ == '__main__':
     app.run()
