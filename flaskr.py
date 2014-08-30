@@ -33,6 +33,12 @@ def init_db():
         db.commit()
 
 
+def init_imgdb():
+    with closing(connect_db()) as db:
+        with app.open_resource("imgrepo.sql", mode='r') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
+
 @app.before_request
 def before_request():
     g.db = connect_db()
@@ -59,6 +65,7 @@ def add_entry():
     g.db.commit()
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -90,17 +97,28 @@ def openmap():
 
 @app.route('/gpsdata')
 def gpsdata():
-    # flash('open map')
-    basic = gpslib.getallimgs()
+    cur = g.db.execute('select igm_x,img_y,img_name from imgrepo')
+    basic = [dict(x=row[0], y=row[1], content=row[2]) for row in cur.fetchall()]
+    # gps = []
+    # for b in basic:
+    #     point = {}
+    #     point['x'] = b[0]
+    #     point['y'] = b[1]
+    #     point['content'] = b[2]
+    #     gps.append(point)
+    return json.dumps(basic, ensure_ascii=True)
 
+
+@app.route('/init_imgrepo')
+def init_imgrepo():
+    init_imgdb()
+    basic = gpslib.getallimgs()
     gps = []
     for b in basic:
-        point = {}
-        point['x'] = b[0]
-        point['y'] = b[1]
-        point['content'] = b[2]
-        gps.append(point)
-    return json.dumps(gps, ensure_ascii=True)
+        g.db.execute('insert into imgrepo(img_name,igm_x,img_y) values(?, ?,?)',
+                     [b[2], b[0], b[1]])
+    g.db.commit()
+    return '<h1>OK</h1>'
 
 
 if __name__ == '__main__':

@@ -27,8 +27,8 @@ def printgps(file):
 
     point = []
     if len(gpsdict) > 0:
-        gpsisSourthorNorth = gpsdict[isSouthorNorth].values
-        gpsisEastorWest = gpsdict[isEastorWest].values
+        # gpsisSourthorNorth = gpsdict[isSouthorNorth].values
+        # gpsisEastorWest = gpsdict[isEastorWest].values
         gpsLatvalues = gpsdict[Latitude].values
         gpslongvalues = gpsdict[Longitude].values
         gpspoint = geoconv.conv(str(__gpstran(gpslongvalues)) + ',' + str(__gpstran(gpsLatvalues)))

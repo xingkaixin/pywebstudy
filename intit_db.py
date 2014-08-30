@@ -3,4 +3,5 @@
 __author__ = 'XingKaiXin.me'
 import flaskr
 
-flaskr.init_db()
+# flaskr.init_db()
+flaskr.init_imgdb()
