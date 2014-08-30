@@ -50,7 +50,7 @@ def __gpstran(a):
 def getallimgs():
     a = []
     for f in files:
-        if printgps(f) == None:
+        if printgps(f) is None:
             pass
         else:
             a.append(printgps(f))
