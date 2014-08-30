@@ -23,6 +23,7 @@
     xmlhttp.onreadystatechange = function() {
 	    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 	        myArr = JSON.parse(xmlhttp.responseText);
+	        document.write(myArr.length);
 	    	}
 	}
     xmlhttp.open("GET",url,false);
