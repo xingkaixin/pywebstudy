@@ -14,37 +14,42 @@
 </head>
 <body>
 	<div id="allmap"></div>
-    <p>{{ gps_data }}</p>
+    <div id="id01"></div>
 </body>
 </html>
 <script type="text/javascript" charset="utf-8" >
-	//request gps data
-	var url = "/gpsdata"
-	//1.创建XMLHttpRequest组建
-    xmlHttpRequest = createXmlHttpRequest();
+	var url = "/gpsdata";
+    xmlhttp  = new XMLHttpRequest();
+    var myArr;
+    var gps = new Array();
+    xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        myArr = JSON.parse(xmlhttp.responseText);
+        for(i = 0;i<myArr.length;i++) {
+            var point = new Array();
+            point[0] = myArr[i].x;
+            point[1] = myArr[i].y;
+            point[2] = myArr[i].content;
+            gps[i] = point;
+        }
 
-    //2.设置回调函数
-    //xmlHttpRequest.onreadystatechange = gpsJSON;
-
-    //3.初始化XMLHttpRequest组建
-    xmlHttpRequest.open("GET",url,true);
+    	}
+	}
+    xmlhttp.open("GET",url,false);
 
     //4.发送请求
-    xmlHttpRequest.send(null);
-    var gps = xmlHttpRequest.responseText;
-    document.write(gps);
+    xmlhttp.send(null);
 
 	// 百度地图API功能
 	map = new BMap.Map("allmap");
 	map.centerAndZoom(new BMap.Point(121.50257596903, 31.402513799794), 1);
 	map.enableScrollWheelZoom(true);
-	//var gps = {{gps_data}};
-	var tit = "{{ tilte }}";
-	var data_info = [[121.50257596903, 31.402513799794,"A"],
-					 [121.60956005698, 31.206691064643,"B"],
-					 [121.50264354586, 31.402572117756,"C"],
-					 [113.55655398267, 22.191839043074,"D"]
-					];
+	// var data_info = [[121.50257596903, 31.402513799794,"A"],
+	// 				 [121.60956005698, 31.206691064643,"B"],
+	// 				 [121.50264354586, 31.402572117756,"C"],
+	// 				 [113.55655398267, 22.191839043074,"D"]
+	// 				];
+	var data_info = gps;
 	var opts = {
 				width : 250,     // 信息窗口宽度
 				height: 80,     // 信息窗口高度
@@ -63,13 +68,13 @@
 		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
 		map.openInfoWindow(infoWindow,point); //开启信息窗口
 	}
-
-	//XmlHttpRequest对象
-    function createXmlHttpRequest(){
-        if(window.ActiveXObject){ //如果是IE浏览器
-            return new ActiveXObject("Microsoft.XMLHTTP");
-        }else if(window.XMLHttpRequest){ //非IE浏览器
-            return new XMLHttpRequest();
-        }
+/*    function myFunction(arr) {
+    var out = "";
+    var i;
+    document.write(arr.length);
+    for(i = 0; i < arr.length; i++) {
+        out += arr[i].x;
     }
+    document.getElementById("id01").innerHTML = out;
+	}*/
 </script>
