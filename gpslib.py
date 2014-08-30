@@ -48,5 +48,3 @@ def getallimgs():
     for f in files:
         a.append(printgps(f))
     return a
-
-
