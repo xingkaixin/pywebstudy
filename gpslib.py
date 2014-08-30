@@ -25,26 +25,34 @@ def printgps(file):
         if tag in gps:
             gpsdict[tag] = tags[tag]
 
-    def gpstran(a):
+    point = []
+    if len(gpsdict) > 0:
+        gpsisSourthorNorth = gpsdict[isSouthorNorth].values
+        gpsisEastorWest = gpsdict[isEastorWest].values
+        gpsLatvalues = gpsdict[Latitude].values
+        gpslongvalues = gpsdict[Longitude].values
+        # print filename, gpsisEastorWest, gpstran(gpslongvalues), gpsisSourthorNorth, gpstran(gpsLatvalues)
+        gpspoint = geoconv.conv(str(__gpstran(gpslongvalues)) + ',' + str(__gpstran(gpsLatvalues)))
+        point.append(gpspoint[0])
+        point.append(gpspoint[1])
+        point.append(filename)
+        return point
+    else:
+        return None
+
+
+def __gpstran(a):
         j = []
         for i in a:
             j.append(i.num/i.den)
         return j[0] + j[1]/60.0 + j[2]/3600.0
 
-    gpsisSourthorNorth = gpsdict[isSouthorNorth].values
-    gpsisEastorWest = gpsdict[isEastorWest].values
-    gpsLatvalues = gpsdict[Latitude].values
-    gpslongvalues = gpsdict[Longitude].values
-    # print filename, gpsisEastorWest, gpstran(gpslongvalues), gpsisSourthorNorth, gpstran(gpsLatvalues)
-    gpspoint = geoconv.conv(str(gpstran(gpslongvalues)) + ',' + str(gpstran(gpsLatvalues)))
-    point = []
-    point.append(gpspoint[0])
-    point.append(gpspoint[1])
-    point.append(filename)
-    return point
 
 def getallimgs():
     a = []
     for f in files:
-        a.append(printgps(f))
+        if printgps(f) == None:
+            pass
+        else:
+            a.append(printgps(f))
     return a
