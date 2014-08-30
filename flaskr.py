@@ -8,6 +8,7 @@ from flask import Flask, request, session, g, redirect, url_for, \
     abort, render_template, flash
 from contextlib import closing
 import json
+import gpslib
 
 # configuation
 DATABASE = './tmp/flaskr.db'
@@ -90,12 +91,7 @@ def openmap():
 @app.route('/gpsdata')
 def gpsdata():
     # flash('open map')
-    basic = [
-        [121.50257596903, 31.402513799794, "AA"],
-        [121.60956005698, 31.206691064643, "BB"],
-        [121.50264354586, 31.402572117756, "CC"],
-        [113.55655398267, 22.191839043074, "DD"]
-    ]
+    basic = gpslib.getallimgs()
 
     gps = []
     for b in basic:
