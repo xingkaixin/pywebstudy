@@ -120,6 +120,21 @@ def init_imgrepo():
     g.db.commit()
     return '<h1>OK</h1>'
 
+@app.route('/test')
+def test():
+    a = ['a','b','c','d','e','f','g','h','i','j','k']
+    b = 1
+    c = ''
+    f = []
+    for d in a:
+        e = []
+        e.append(d)
+        e.append(str(b))
+        b += 1
+        f.append(e)
+    entries = [dict(title=row[0], text=row[1]) for row in f]
+    return render_template('test.html', entries=entries)
+
 
 if __name__ == '__main__':
     app.run()
